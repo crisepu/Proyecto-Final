@@ -215,6 +215,14 @@ const UserRegisterForm = () => {
               </div>
             </div>
             <div className="row pb-1">
+              <b>Sube tu CV</b>
+            <div className="col">
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+            <input type="file" name="archivo"></input>
+            </form> 
+            </div>
+          </div>
+            <div className="row pb-1">
               <div className="col">
                 <label for="comuna" className="form-label">
                   <b>Comuna</b>
@@ -247,6 +255,7 @@ const UserRegisterForm = () => {
               </div>
             </div>
           </div>
+          
           <div className="">
             <div className="row d-md-flex gap-2">
               <button type="submit" className="btn btn-primary btn-lg mt-2">

@@ -5,8 +5,11 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager, create_access_token, get_jwt_identity, jwt_required
 from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
+from werkzeug import secure_filename
 
 app = Flask(__name__)
+# Carpeta de subida
+app.config['UPLOAD_FOLDER'] = 'src/upload-files'
 CORS(app)
 app.config['DEBUG'] = True
 app.config['ENV'] = 'development'
@@ -42,7 +45,13 @@ def register_user():
 
     practicante.save()
 
+    f = request.files['archivo']
+    filename = secure_filename(f.filename)
+    # Guardamos el archivo en el directorio "Archivos PDF"
+    f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
     return jsonify(practicante.serialize()), 200
+
 
 @app.route('/api/empresa-register', methods=['POST'])
 def register_empresa():
